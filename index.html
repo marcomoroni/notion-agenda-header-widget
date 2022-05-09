@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        h1 {
+            color: #37352F;
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+            font-weight: 700;
+            line-height: 1.2;
+            font-size: 32px;
+        }
+    </style>
+</head>
+
+<body>
+    <app-root>
+        <h1 id="date">Hello</h1>
+    </app-root>
+    <script>
+        `use strict`
+
+        window.addEventListener(`load`, (event) => {
+            tick()
+        })
+
+        function tick() {
+            const now = new Date();
+            const options = { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById(`date`).innerHTML = now.toLocaleDateString("en-UK", options);
+            setTimeout(tick, 500);
+        }
+    </script>
+</body>
+
+</html>
