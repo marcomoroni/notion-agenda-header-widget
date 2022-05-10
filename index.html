@@ -11,10 +11,19 @@
             cursor: pointer;
         }
 
+        body.dark-theme {
+            background-color: #191919;
+        }
+
         #date,
         #time {
             color: #37352F;
             font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        body.dark-theme #date,
+        body.dark-theme #time {
+            color: #D4D4D4;
         }
 
         #date {
@@ -43,11 +52,39 @@
     <script>
         `use strict`
 
+        const styles = [
+            {
+                time: false,
+                theme: `light`,
+            },
+            {
+                time: true,
+                theme: `light`,
+            },
+            {
+                time: false,
+                theme: `dark`,
+            },
+            {
+                time: true,
+                theme: `dark`,
+            },
+        ];
+
+        var currentStyleIdx = 0;
+
         window.addEventListener(`load`, (event) => {
-            tick()
+            tick();
+            updateStyle();
 
             document.onclick = () => {
-                document.getElementById(`time`).classList.toggle(`hidden`);
+                // Cycle index.
+                currentStyleIdx = currentStyleIdx + 1;
+                if (currentStyleIdx >= styles.length) {
+                    currentStyleIdx = 0;
+                }
+
+                updateStyle();
             };
         })
 
@@ -56,6 +93,27 @@
             document.getElementById(`date`).innerHTML = now.toLocaleDateString("en-UK", { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
             document.getElementById(`time`).innerHTML = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
             setTimeout(tick, 500);
+        }
+
+        function updateStyle() {
+            const style = styles[currentStyleIdx];
+
+            if (style.time) {
+                document.getElementById(`time`).classList.remove(`hidden`);
+            }
+            else {
+                document.getElementById(`time`).classList.add(`hidden`);
+            }
+
+            if (style.theme == `light`) {
+                document.body.classList.remove(`dark-theme`);
+            }
+            else if (style.theme == `dark`) {
+                document.body.classList.add(`dark-theme`);
+            }
+            else {
+                throw (`Unreachable`);
+            }
         }
     </script>
 </body>
