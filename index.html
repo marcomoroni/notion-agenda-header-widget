@@ -15,18 +15,21 @@
             background-color: #191919;
         }
 
-        #date,
+        #date-1,
+        #date-2,
         #time {
             color: #37352F;
             font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
-        body.dark-theme #date,
+        body.dark-theme #date-1,
+        body.dark-theme #date-2,
         body.dark-theme #time {
             color: #D4D4D4;
         }
 
-        #date {
+        #date-1,
+        #date-2 {
             font-weight: 700;
             line-height: 1.2;
             font-size: 32px;
@@ -35,7 +38,7 @@
         #time {
             font-size: 25px;
             font-weight: 700;
-            margin-top: 20px;
+            margin-top: 24px;
         }
 
         .hidden {
@@ -46,8 +49,9 @@
 
 <body>
     <app-root>
-        <p id="date"></p>
-        <p id="time" class="hidden"></p>
+        <p id="date-1"></p>
+        <p id="date-2"></p>
+        <p id="time"></p>
     </app-root>
     <script>
         `use strict`
@@ -90,7 +94,8 @@
 
         function tick() {
             const now = new Date();
-            document.getElementById(`date`).innerHTML = now.toLocaleDateString("en-UK", { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById(`date-1`).innerHTML = now.toLocaleDateString("en-UK", { weekday: 'long' });
+            document.getElementById(`date-2`).innerHTML = now.toLocaleDateString("en-UK", { year: 'numeric', month: 'long', day: 'numeric' });
             document.getElementById(`time`).innerHTML = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
             setTimeout(tick, 500);
         }
