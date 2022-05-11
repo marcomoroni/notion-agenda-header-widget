@@ -94,7 +94,7 @@
 
         function tick() {
             const now = new Date();
-            document.getElementById(`date-1`).innerHTML = now.toLocaleDateString("en-UK", { weekday: 'long' });
+            document.getElementById(`date-1`).innerHTML = now.toLocaleDateString("en-UK", { weekday: 'long' }) + `,`;
             document.getElementById(`date-2`).innerHTML = now.toLocaleDateString("en-UK", { year: 'numeric', month: 'long', day: 'numeric' });
             document.getElementById(`time`).innerHTML = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
             setTimeout(tick, 500);
