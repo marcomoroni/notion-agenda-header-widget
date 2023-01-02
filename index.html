@@ -79,6 +79,11 @@
 
         window.addEventListener(`load`, (event) => {
             tick();
+
+            if (inDarkMode()) {
+                currentStyleIdx = 2;
+            }
+
             updateStyle();
 
             document.onclick = () => {
@@ -90,6 +95,20 @@
 
                 updateStyle();
             };
+
+            // Watch for light/dark mode chenges.
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                const currentTheme = styles[currentStyleIdx].theme;
+                const newTheme = event.matches ? `dark` : `light`;
+                if (newTheme == `light` && currentTheme == `dark`) {
+                    currentStyleIdx = currentStyleIdx - 2;
+                    updateStyle();
+                }
+                else if (newTheme == `dark` && currentTheme == `light`) {
+                    currentStyleIdx = currentStyleIdx + 2;
+                    updateStyle();
+                }
+            });
         })
 
         function tick() {
@@ -119,6 +138,10 @@
             else {
                 throw (`Unreachable`);
             }
+        }
+
+        function inDarkMode() {
+            return window.matchMedia && window.matchMedia(`(prefers-color-scheme: dark)`).matches;
         }
     </script>
 </body>
